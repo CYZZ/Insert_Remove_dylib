@@ -85,7 +85,7 @@
     unsigned char load_command_buffer[4096];
     for (int i=0; i<mach.ncmds; i++) {
         fread(&exist_cmd, sizeof(struct load_command), 1, fp);
-        if (exist_cmd.cmd == LC_LOAD_DYLIB) {
+        if (exist_cmd.cmd == LC_LOAD_DYLIB || exist_cmd.cmd == LC_LOAD_WEAK_DYLIB || exist_cmd.cmd == LC_LOAD_UPWARD_DYLIB) {
             //读取load command 的path
             fseek(fp, -sizeof(struct load_command), SEEK_CUR);
             fread(&orig_dylib, sizeof(struct dylib_command), 1, fp);
@@ -143,7 +143,7 @@
     unsigned char load_command_buffer[4096];
     for (int i=0; i<mach.ncmds; i++) {
         fread(&exist_cmd, sizeof(struct load_command), 1, fp);
-        if (exist_cmd.cmd == LC_LOAD_DYLIB) {
+        if (exist_cmd.cmd == LC_LOAD_DYLIB || exist_cmd.cmd == LC_LOAD_WEAK_DYLIB || exist_cmd.cmd == LC_LOAD_UPWARD_DYLIB) {
             //读取load command 的path
             fseek(fp, -sizeof(struct load_command), SEEK_CUR);
             fread(&orig_dylib, sizeof(struct dylib_command), 1, fp);
